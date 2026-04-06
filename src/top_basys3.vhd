@@ -3,6 +3,9 @@ library ieee;
   use ieee.numeric_std.all;
 
 
+-- DOCUMENTATION: I used https://gemini.google.com/share/403a6b958937 to explain an error I was getting uniquely on the autograder. The program already compiled and ran beforehand, though.
+-- This led me to update the combined reset to be handled in a signal instead of inline with the port map.
+
 -- Lab 4
 entity top_basys3 is
     port(
