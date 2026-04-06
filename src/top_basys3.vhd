@@ -32,6 +32,7 @@ architecture top_basys3_arch of top_basys3 is
     signal w_seg_1 : std_logic_vector(6 downto 0) := "0000000";
     signal w_seg_2 : std_logic_vector(6 downto 0) := "0000000";
     signal w_o : std_logic_vector(10 downto 0) := "0000000" & "0000";
+    signal reset_signal : std_logic;
   
 	-- component declarations
     component sevenseg_decoder is
@@ -97,7 +98,7 @@ begin
     el_fsm_1 : elevator_controller_fsm
         port map (
             i_clk => w_clk,
-            i_reset => btnR or btnU,
+            i_reset => reset_signal,
             is_stopped => sw(1),
             go_up_down => sw(0),
             o_floor => w_flr_1
@@ -106,7 +107,7 @@ begin
     el_fsm_2 : elevator_controller_fsm
         port map (
             i_clk => w_clk,
-            i_reset => btnR or btnU,
+            i_reset => reset_signal,
             is_stopped => sw(14),
             go_up_down => sw(15),
             o_floor => w_flr_2
@@ -143,6 +144,7 @@ begin
 	-- LED 15 gets the FSM slow clock signal. The rest are grounded.
 	led(15) <= w_clk;
 	led(14 downto 0) <= "000000000000000";
+	reset_signal <= btnR or btnU;
 --	w_clk => led(15);
 	
 	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
